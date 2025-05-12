@@ -14,7 +14,7 @@ const MovieList = ({ movies }: MovieListProps) => {
           key={movie.id}
           id={movie.id}
           title={movie.title}
-          posterPath={movie.poster_path} slug={""}        />
+          posterPath={movie.poster_path}      />
       ))}
     </div>
   );
