@@ -3,48 +3,43 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { movieApi } from "src/api/movie";
-import MovieList from "./_components/movieList";
-import SearchBar from "./_components/searchBar";
-import LoadingError from "./_components/loadingError";
-import LoadingSpinner from "../_components/loadingSpinner";
-
+import SearchSection from "./_components/searchSection";
+import FilterSection from "./_components/filterSection";
+import MovieListSection from "./_components/movieListSection";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState<number>(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>("popular");
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["popularMovies", searchTerm],
-    queryFn: () =>
-      movieApi
-        .getPopularMovies(searchTerm)
-        .then((res) => res.data.results),
-    enabled: true, // Always enabled to update the results based on search term
+  const genresQuery = useQuery({
+    queryKey: ["genres"],
+    queryFn: () => movieApi.getGenres().then((res) => res.data.genres),
   });
 
-  const handleSearch = (term: string) => {
-    setSearchTerm(term);
-  };
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["movies", selectedGenre, selectedCategory, searchTerm],
+    queryFn: () =>
+      movieApi
+        .getFilteredMovies(selectedGenre, selectedCategory, searchTerm)
+        .then((res) => res.data.results),
+  });
 
   return (
     <main className="p-4">
       <h1 className="text-2xl font-bold mb-4">Popular Movies</h1>
 
-      <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
+      <SearchSection searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {searchTerm && (
-        <h2 className="text-xl font-semibold mb-4">
-          Results for: "{searchTerm}"
-        </h2>
-      )}
+      <FilterSection
+        genres={genresQuery.data || []}
+        selectedGenre={selectedGenre}
+        setSelectedGenre={setSelectedGenre}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
 
-      {/* Use the loading spinner */}
-      <LoadingError isLoading={isLoading} isError={isError} />
-
-      {isLoading ? (
-        <LoadingSpinner /> // Show spinner while loading
-      ) : (
-        !isError && data && <MovieList movies={data} />
-      )}
+      <MovieListSection data={data} isLoading={isLoading} isError={isError} />
     </main>
   );
 }
