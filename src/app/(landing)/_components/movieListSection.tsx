@@ -17,7 +17,7 @@ const MovieListSection: FC<MovieListSectionProps> = ({
 }) => {
   return (
     <div>
-      <LoadingError isLoading={isLoading} isError={isError} />
+      <LoadingError  isError={isError} />
 
       {isLoading ? (
         <LoadingSpinner /> 
