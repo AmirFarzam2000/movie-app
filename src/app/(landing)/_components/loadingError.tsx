@@ -1,5 +1,4 @@
 import React from "react";
-import LoadingSpinner from "src/app/_components/loadingSpinner";
 
 interface LoadingErrorProps {
   isLoading: boolean;
