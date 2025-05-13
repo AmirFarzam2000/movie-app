@@ -20,5 +20,7 @@ export const movieApi = {
   
     return api.get(`/discover/movie?${params.toString()}`);
   },
+  getMovieById: (id: string | number) => api.get(`/movie/${id}?language=en`),
+
   
 };
