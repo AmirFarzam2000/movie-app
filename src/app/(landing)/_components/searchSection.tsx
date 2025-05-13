@@ -16,8 +16,8 @@ const SearchSection: FC<SearchSectionProps> = ({ searchTerm, setSearchTerm }) =>
       <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
       {searchTerm && (
         <h2 className="text-xl font-semibold mb-4">
-          Results for: "{searchTerm}"
-        </h2>
+  Results for: &quot;{searchTerm}&quot;
+  </h2>
       )}
     </div>
   );
