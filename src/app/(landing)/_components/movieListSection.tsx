@@ -2,9 +2,10 @@ import { FC } from "react";
 import MovieList from "./movieList";
 import LoadingError from "../_components/loadingError";
 import LoadingSpinner from "src/app/_components/loadingSpinner";
+import { Movie } from "src/model/movie";
 
 interface MovieListSectionProps {
-  data: any[] | undefined;
+  data: Movie[];
   isLoading: boolean;
   isError: boolean;
 }
