@@ -26,7 +26,7 @@ export default function Home() {
   });
 
   return (
-    <main className="p-4">
+    <main className="p-4 max-w-screen-xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Popular Movies</h1>
 
       <SearchSection searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
