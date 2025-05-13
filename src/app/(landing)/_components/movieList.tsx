@@ -1,4 +1,3 @@
-
 import { Movie } from "src/model/movie";
 import MovieCard from "./movieCard";
 
@@ -14,7 +13,8 @@ const MovieList = ({ movies }: MovieListProps) => {
           key={movie.id}
           id={movie.id}
           title={movie.title}
-          posterPath={movie.poster_path}      />
+          posterPath={movie.poster_path}
+        />
       ))}
     </div>
   );
